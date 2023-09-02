@@ -1,0 +1,11 @@
+export {default as Home}  from "./Home";
+export {default as  GetDonation} from "./GetDonation";
+export {default as AdminDashboard} from "./AdminDashboard";
+export {default as SignIn} from "./SignIn";
+export {default as UserProfile} from "./UserProfile";
+export {default as GenerateDonationReceipt} from "./GenerateDonationReceipt";
+export {default as ChangePassword} from "./ChangePassword";
+export {default as CollectorDashboard} from "./CollectorDashboard";
+export {default as CollectorManagement} from "./CollectorManagement";
+export {default as AllReports} from "./AllReports";
+export {default as ContactUs} from "./ContactUs";

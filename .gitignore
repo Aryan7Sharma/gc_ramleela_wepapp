@@ -1,0 +1,4 @@
+node_modules/
+.env
+db_query's
+db_query's.txt

@@ -95,42 +95,47 @@ It ensures that your Node.js server runs continuously and automatically restarts
 
 Responsibility: This component is responsible for admin/collector registration, login, and authentication.
 
-Design:
+#### Design:
 
-Authentication Middleware: Middleware functions are used to verify JWT tokens for protected routes. If a route requires authentication, the middleware checks the token's validity.
+#### Authentication Middleware: 
+Middleware functions are used to verify JWT tokens for protected routes. If a route requires authentication, the middleware checks the token's validity.
 
-Registration: When a admin registers collector, their data is validated and stored in the PostgreSQL database (tbl_users and tbl_login_credentials) and also validate that only admin can register new collector.
+#### Registration: 
+When a admin registers collector, their data is validated and stored in the PostgreSQL database (tbl_users and tbl_login_credentials) and also validate that only admin can register new collector.
 
-Login: admin/collector provide their credentials (username and password). These credentials are verified against stored data in tbl_login_credentials. If valid, a JWT token is generated.
+#### Login: 
+admin/collector provide their credentials (username and password). These credentials are verified against stored data in tbl_login_credentials. If valid, a JWT token is generated.
 
-JWT Generation: A JWT token is generated using the admin/collector's information and a secret key. This token is sent to the admin/collector browser for subsequent authenticated requests.
+#### JWT Generation: 
+A JWT token is generated using the admin/collector's information and a secret key. This token is sent to the admin/collector browser for subsequent authenticated requests.
 
-JWT Validation: When an authenticated request is received, the JWT token is validated using middleware. If valid, the request is allowed to proceed; otherwise, it's rejected.
+#### JWT Validation: 
+When an authenticated request is received, the JWT token is validated using middleware. If valid, the request is allowed to proceed; otherwise, it's rejected.
 
 #### Dependencies:
 
-Express.js: Routing and middleware handling.
+#### Express.js: Routing and middleware handling.
 
-PostgreSQL: Storing admin/collector data.
+#### PostgreSQL: Storing admin/collector data.
 
-JWT Library: Generating and validating tokens.
+#### JWT Library: Generating and validating tokens.
 
-Express Middleware: Handling route-specific authentication.
+#### Express Middleware: Handling route-specific authentication.
 
 #### Interfaces:
 
-/auth/login: POST request to log in and receive a JWT token.
+#### /auth/login: POST request to log in and receive a JWT token.
 
-/admin/register: POST request to register a new collector.
+#### /admin/register: POST request to register a new collector.
 
 #### Middleware: 
 Used to protect specific routes that require authentication.
 
 #### Database Schema:
 
-tbl_users: Stores admin/collector information (e.g., name, email).
+#### tbl_users: Stores admin/collector information (e.g., name, email).
 
-tbl_login_credentials: Stores login credentials (e.g., username, hashed password).
+#### tbl_login_credentials: Stores login credentials (e.g., username, hashed password).
 
 #### Sequence of Actions:
 

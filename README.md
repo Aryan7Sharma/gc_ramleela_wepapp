@@ -1,72 +1,84 @@
 # HLD & LLD with FlowChat's
 
 
-## Low Level Flow:
+## High-Level Design (HLD) for Noida Extension Ramleela Web Application.
 
-### (1) User Authentication Component
 
-#### admin/collector Authentication:
+## High-Level Flow:
 
-Responsibility: This component is responsible for admin/collector registration, login, and authentication.
+A user sends an HTTP request to your application.
 
-Design:
+Nginx receives the request and forwards it to the appropriate backend service (Node.js/Express.js).
 
-Authentication Middleware: Middleware functions are used to verify JWT tokens for protected routes. If a route requires authentication, the middleware checks the token's validity.
+Node.js processes the request by using Express.js routes.
 
-Registration: When a admin registers collector, their data is validated and stored in the PostgreSQL database (tbl_users and tbl_login_credentials) and also validate that only admin can register new collector.
+If the request requires authentication, JWT tokens are validated.
 
-Login: admin/collector provide their credentials (username and password). These credentials are verified against stored data in tbl_login_credentials. If valid, a JWT token is generated.
+Node.js interacts with the PostgreSQL database to fetch or update data.
 
-JWT Generation: A JWT token is generated using the admin/collector's information and a secret key. This token is sent to the admin/collector browser for subsequent authenticated requests.
+The response is sent back through Nginx to the user's browser.
 
-JWT Validation: When an authenticated request is received, the JWT token is validated using middleware. If valid, the request is allowed to proceed; otherwise, it's rejected.
+React components render the data received from the server.
 
-#### Dependencies:
+Why Nginx and PM2:
 
-Express.js: Routing and middleware handling.
+#### Nginx: 
+Nginx is used as a reverse proxy server because it efficiently handles incoming requests, balances load, and provides security features. It acts as a gatekeeper for your application and directs traffic to the appropriate backend services. Additionally, it can serve static files and handle SSL termination.
 
-PostgreSQL: Storing admin/collector data.
+#### PM2 (Process Manager): 
+PM2 ensures high availability of your Node.js application. It manages multiple Node.js processes, monitors them, and automatically restarts them if they crash. This is crucial for maintaining the reliability and uptime of your application in a production environment.
 
-JWT Library: Generating and validating tokens.
+##### This high-level design outlines the major components and technologies used in your application and how they interact to deliver the required functionality. It's a robust setup for deploying a scalable and reliable web application on AWS with a PERN stack.
 
-Express Middleware: Handling route-specific authentication.
+### Explanation of every technology that used in the application.
+#### (1) AWS (Amazon Web Services):
 
-#### Interfaces:
+AWS is a cloud computing platform used to host your application.
+It provides scalable, reliable, and cost-effective infrastructure for deploying web applications.
 
-/auth/login: POST request to log in and receive a JWT token.
+#### (2) EC2 (Elastic Compute Cloud):
 
-/admin/register: POST request to register a new collector.
+EC2 instances are virtual servers hosted on AWS.
+You've deployed your Linux server (Ubuntu) on an EC2 instance.
 
-#### Middleware: 
-Used to protect specific routes that require authentication.
+#### (3) Nginx:
 
-#### Database Schema:
+Nginx is a high-performance web server and reverse proxy server.
+It serves as a frontend to handle incoming HTTP requests.
+Nginx routes requests to the appropriate backend service (Node.js server) based on the URL.
 
-tbl_users: Stores admin/collector information (e.g., name, email).
+### (4) Node.js:
 
-tbl_login_credentials: Stores login credentials (e.g., username, hashed password).
+Node.js is a JavaScript runtime environment used for building scalable server-side applications.
+You've developed your server using Node.js and Express.js.
 
-#### Sequence of Actions:
+### (5) Express.js:
 
-collector registers by sending a POST request to /admin/register with collector details.
+Express.js is a web application framework for Node.js.
+It simplifies the process of creating RESTful APIs and handling HTTP requests.
+You've divided your routes into different categories (auth, admin, collector, common) to manage various API requests.
 
-The server validates the data and stores it in the database.
+#### (6) PostgreSQL:
 
-admin/collector logs in with a POST request to /auth/login, providing credentials.
+PostgreSQL is a powerful open-source relational database system.
+It's used to store and manage your application's data.
+You have five tables in the master schema (tbl_users, tbl_login_credentials, tbl_donors_details, tbl_collections_details, tbl_guest_donor_details) for data storage.
+#### (7) React:
 
-The server validates the credentials, generates a JWT token, and sends it to the admin/collector.
+React is a JavaScript library for building user interfaces.
+It's used for creating the frontend of your application.
+You have 15 pages and 22 different components, which are used to render the user interface.
 
-The admin/collector includes the token in the headers of subsequent requests.
+#### (8) JWT (JSON Web Tokens):
 
-Middleware checks the token's validity for protected routes.
+JWT is used for authentication.
+When a user logs in, a JWT token is generated, and it's sent with subsequent API requests to authenticate the user.
 
-Valid requests are processed, while invalid requests are rejected.
+#### (9)PM2 (Process Manager):
 
-#### Security Considerations:
+PM2 is a production process manager for Node.js applications.
+It ensures that your Node.js server runs continuously and automatically restarts if it crashes or encounters an error.
 
-Passwords are securely hashed before storage.
-
-JWT tokens have a short expiration time for security.
 
 
 ### High Level Flowchart of GC Web App

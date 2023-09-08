@@ -26,9 +26,9 @@ app.disable('x-powered-by'); // less hackers know about our stack
 const port = process.env.Port || 3001;
 
 /** api routes */
-app.use("/auth",authRoute);
-app.use("/admin",veriftAdmin, adminRoute);
-app.use("/collector",verifyCollector,collectorRoute);
+app.use("/api/auth",authRoute);
+app.use("/api/admin",veriftAdmin, adminRoute);
+app.use("/api/collector",verifyCollector,collectorRoute);
 
 /** start server only when we have valid connection */
 connectDB().authenticate().then(() => {

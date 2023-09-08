@@ -68,6 +68,25 @@ router.post('/getReceiptsInfoByReceiptNo',validateAlltypeUser,
 ],validateBody,
 authController.getReceiptsInfoByReceiptNo);
 
+router.post(
+    "/updateprofile",validateAlltypeUser,
+    [
+        check("name").exists().withMessage("Name is required").isString().isLength({max:50}).withMessage("Name must be String with max Length 50 Character including white space."),
+    ],validateBody,
+    authController.updateProfile
+);
+
+
+
+
+const path = __dirname.split('/');
+path.pop();
+const profileimgPath = path.join('/')+'/public/Images/UsersProfileImage/';
+router.get('/images/profileimg/:filename', (req, res) => {
+    const { filename } = req.params;
+    res.sendFile(profileimgPath + filename);
+  });
+
 
 
 module.exports = router

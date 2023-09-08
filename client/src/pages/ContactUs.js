@@ -19,21 +19,18 @@ const ContactUs = () => {
         try {
             actions.setSubmitting(true);
             actions.setStatus(true);
-            console.log(values)
             //const responce = await CustomPostApi('auth/changePassword',values);
             toast.success("We got your message we try to respond you ASAP.")
             const responce = 200;
             return ;
-            console.log(responce);
             if (responce.status === 200) {
                 toast.success("Password Changed Successfully.")
             } else if (responce.error) {
-                console.log(responce.error)
                 toast.error(responce.error);
                 toast.error("Failed to Change Password");
             }
         }catch(error){
-            console.error(error);
+            toast.error("Something Went Wrong!");
         }finally{
             actions.setSubmitting(false);
             actions.setStatus(false);

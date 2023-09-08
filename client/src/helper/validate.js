@@ -1,11 +1,9 @@
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
-import { authenticate } from './helper';
 
 /** validate login page username */
 export async function usernameValidate(values){
     const errors = usernameVerify({}, values);
-    console.log("check",errors, values.username);
     if(values.username){
         // check user exist or not
         //const { status } = await authenticate(values.username);
@@ -120,9 +118,9 @@ const fieldsValidation = (...objects) =>{
         new_password:Yup.string().required('New password is Required').min(8, "Password* Length Can't be Less than 8").max(16, "Password* Length Can't be Greater than 16"),
         confirm_new_password:Yup.string().required('Confirm New password is required').oneOf([Yup.ref('new_password'), null], 'Passwords must match'),
         phone_no: Yup.string().required('Phone No is Required').matches(phoneRegExp, 'Phone number is not valid').min(10, "Phone No Can't be Less than 10").max(10, "Phone No Can't be Greater than 10"),
-        flat_no: Yup.string().required('Flat No is Required').min(2, "Block/House* No Can't be Less than 2").max(10, "Block/House* Can't be Greater than 10"),
-        block_no: Yup.string().required('Block No is Required').min(2, "Block/House* No Can't be Less than 2").max(10, "Block/House* Can't be Greater than 10"),
-        society_name: Yup.string().required('Society Name is Required').min(5, "Society/Street* Name Can't be Less than 5").max(40, "Society/Street* Name Can't be Greater than 40"),
+        flat_no: Yup.string().required('Flat/House No  is Required').min(2, "Block/House* No Can't be Less than 2").max(10, "Block/House* Can't be Greater than 10"),
+        block_no: Yup.string().required('Block/Street  is Required').min(2, "Block/House* No Can't be Less than 2").max(10, "Block/House* Can't be Greater than 10"),
+        society_name: Yup.string().required('Society/Area Name is Required').max(40, "Society/Street* Name Can't be Greater than 40"),
         city_name:Yup.string().required('City Name is Required'),
         address: Yup.string().required('Address is Required'),
         amount: Yup.string().required('Amount is Required'),

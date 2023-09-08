@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import avatar from '../assets/profile.png';
 import { Toaster, toast } from 'react-hot-toast';
@@ -13,7 +12,6 @@ import { FormHeader, LoadingOverlay } from '../components/index';
 const SignIn = () => {
     const navigate = useNavigate();
     const { user, setUser } = useAuth();
-    console.log("user", user)
     const initialValues = {
         username: '',
         password: ''
@@ -22,7 +20,6 @@ const SignIn = () => {
     const handleSubmit = async (values, actions) => {
         actions.setSubmitting(true);
         const { username, password } = values;
-        console.log(username, password);
 
         try {
             const loginPromise = await LoginApi('auth/login', {
@@ -34,18 +31,17 @@ const SignIn = () => {
             } else if (loginPromise.status === 200) {
                 toast.success("Login Successfully!")
                 const { data } = loginPromise.data
-                console.log("data", data);
                 const authToken = data.token;
                 localStorage.setItem('authToken', authToken); // Store the token in local storage
                 localStorage.setItem('user_type', data.user_type); // Store the token in local storage
+                localStorage.setItem('profile_img_path', data.profile_img_path);
                 navigate("/");
-                setUser({ "userType": data.user_type, "authToken": authToken });
+                setUser({ "userType": data.user_type, "authToken": authToken, "profile_img_path":data.profile_img || "NA" });
 
             } else {
             }
         } catch (error) {
-            console.error(error);
-            toast.error(error.message)
+            toast.error("Something Went Wrong!");
         } finally {
             actions.setSubmitting(false);
         }

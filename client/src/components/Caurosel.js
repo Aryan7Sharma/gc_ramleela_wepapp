@@ -8,7 +8,7 @@ const Caurosel = () => {
                 <div className="relative h-56 overflow-hidden  md:h-96">
                     {/* <!-- Item 1 --> */}
                     <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="https://imgk.timesnownews.com/story/rrrrn.png?tr=w-600,h-450,fo-auto" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-fit = width: fit-content" alt="..." />
+                        <img src="./WhatsApp Image 2023-08-11 at 4.21.35 PM._dark.jpeg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-fit = width: fit-content" alt="..." />
                     </div>
                     {/* <!-- Item 2 --> */}
                     <div className=" hidden duration-700 ease-in-out" data-carousel-item>

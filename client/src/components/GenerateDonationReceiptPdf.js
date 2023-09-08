@@ -20,7 +20,7 @@ const GenerateDonationReceiptPdf = ({ pdfData, setPdfData, getReceiptDetails, sh
                 URL.revokeObjectURL(url);
             }
         } catch (err) {
-            console.error("error",err);
+            
         }
     };
 
@@ -54,7 +54,6 @@ const GenerateDonationReceiptPdf = ({ pdfData, setPdfData, getReceiptDetails, sh
             // return the modified PDF data for Seting up to the receipt Template.
             return modifiedPdfBytes;
         } catch (error) {
-            console.error(error)
         }
     };
 
@@ -68,9 +67,6 @@ const GenerateDonationReceiptPdf = ({ pdfData, setPdfData, getReceiptDetails, sh
                 setPdfData(modifiedPdfBytes);
             })
             .catch((err) => console.error(err));
-        // fetchPdfTemplate()
-        //     .then((resp) => setPdfData(resp))
-        //     .catch((err) => console.error(err));
     }, []); // Run this effect once when the component mounts
 
     return (
@@ -120,38 +116,3 @@ const GenerateDonationReceiptPdf = ({ pdfData, setPdfData, getReceiptDetails, sh
 export default GenerateDonationReceiptPdf;
 
 
-
-// const modifyPdf = async (receiptDeatails) => {
-//     // Create a PDFDocument from the template
-//     try {
-//         const pdfBytes = new Uint8Array(pdfData);
-//         if (!(pdfBytes instanceof Uint8Array)) {
-//             throw new Error('Invalid pdfData format');
-//         }
-//         const pdfDoc = await PDFDocument.load(pdfBytes);
-//         console.log("load", pdfDoc, "receiptDetails", receiptDeatails);
-
-//         // Modify the PDFDoc using fetchedData
-//         const page = pdfDoc.getPages()[0];
-//         // Modify fields as per your requirements
-//         page.drawText(receiptDeatails.receipt_no, { x: 110, y: 460, size: 12, color: rgb(0, 0, 0) });
-//         page.drawText(receiptDeatails.collection_date, { x: 480, y: 461, size: 12, color: rgb(0, 0, 0) });
-//         page.drawText(receiptDeatails.donor_name, { x: 170, y: 436, size: 12, color: rgb(0, 0, 0) });
-//         page.drawText(receiptDeatails.address, { x: 130, y: 411, size: 12, color: rgb(0, 0, 0) });
-//         page.drawText(receiptDeatails.pan_no, { x: 130, y: 386, size: 12, color: rgb(0, 0, 0) });
-//         page.drawText(receiptDeatails.donor_phone_no, { x: 336, y: 386, size: 12, color: rgb(0, 0, 0) });
-//         //page.drawText(receiptDeatails.donor_email_id, { x: 390, y: 391, size: 12, color: rgb(0, 0, 0) });
-//         page.drawText(receiptDeatails.payment_name, { x: 170, y: 361, size: 12, color: rgb(0, 0, 0) });
-//         page.drawText(receiptDeatails.reference_no, { x: 330, y: 361, size: 12, color: rgb(0, 0, 0) });
-//         page.drawText(receiptDeatails.collected_amount, { x: 155, y: 336, size: 12, color: rgb(0, 0, 0) });
-//         page.drawText(receiptDeatails.collected_amount, { x: 130, y: 280, size: 12, color: rgb(0, 0, 0) });
-//         // Add more modifications here
-
-//         // Serialize the modified PDF
-//         const modifiedPdfBytes = await pdfDoc.save();
-//         // return the modified PDF data for Seting up to the receipt Template.
-//         return modifiedPdfBytes;
-//     } catch (error) {
-//         console.error(error)
-//     }
-// }

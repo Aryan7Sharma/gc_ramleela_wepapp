@@ -45,30 +45,10 @@ export const fetchPdfTemplate = async () => {
         if (!response.ok) {
             throw new Error('Failed to fetch PDF template');
         }
-        console.log("responece", response);
         const pdfBytes = await response.arrayBuffer();
-        console.log("pdfbytes",pdfBytes);
         return pdfBytes;
     } catch (error) {
-        console.error('Error fetching PDF template:', error);
         throw error;
     }
 };
-
-//fetchPdfTemplate().then((resp)=>console.log(resp)).catch((error)=>console.log("error",error));
-
-//   export const fetchPdfTemplate = async () => {
-//     try {
-
-//         const pathArray = __dirname.split("/");
-//         pathArray.pop();
-//         const pdfTemplatePath = pathArray.join("/")+"/assets/Sample_RECEIPTBOOK_final.pdf";
-//         const pdfBytes = await fs.promises.readFile(pdfTemplatePath);
-//         return pdfBytes;
-//     } catch (error) {
-//       console.error('Error fetching PDF template:', error);
-//       throw error;
-//     }
-//   };    
-
 

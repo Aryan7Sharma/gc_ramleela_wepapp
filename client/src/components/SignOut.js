@@ -8,20 +8,12 @@ function SignOut() {
 
     const handleLogout = async () => {
         try {
-            console.log("token logout", user.authToken, user);
-            //const loginPromise = await CustomPostApi('auth/logout', {});
-            // if(loginPromise.error) {
-            //     //console.log(loginPromise.error);
-            //     toast.error(loginPromise.error)
-            //     //toast.error("SignOut Failed From Server Side!")
-            // }
+            
         } catch (error) {
-            console.error(error);
-            toast.error(error.message)
+            toast.error("Something Went Wrong!");
         }finally{
             toast.success("SignOut Successfully!")
-            localStorage.removeItem("user_type");
-            localStorage.removeItem("authToken");
+            localStorage.clear();
             setUser(null);
             navigate("/signin")
         }

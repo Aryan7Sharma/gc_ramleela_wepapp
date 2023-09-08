@@ -25,7 +25,6 @@ import {AuthContext} from '../contexts/AuthContext';
 
 export const IsUserLoggedIN = ({ children }) => {
     const { user } = useContext(AuthContext);
-    console.log(!user,user)
     if(user){
         return <Navigate to={'/'} replace={true}></Navigate>;
     }
@@ -34,7 +33,6 @@ export const IsUserLoggedIN = ({ children }) => {
 
 export const ProtectAllUserRoute = ({ children }) => {
     const { user } = useContext(AuthContext);
-    console.log("protect check", user)
     if(user){
         if(user.userType === "1" || user.userType === "0"){return children}
     }

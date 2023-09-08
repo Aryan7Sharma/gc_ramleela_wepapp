@@ -12,7 +12,6 @@ const DonationReceipt = ({ validatingSchema, handleSubmit, formTitle, searchType
       if (searchType === "phoneno") {setSearchType("phone_no")} 
       else {setSearchType("receipt_no")}
     } catch (error) {
-      console.error(error)
     }
   }
   return (
@@ -21,7 +20,7 @@ const DonationReceipt = ({ validatingSchema, handleSubmit, formTitle, searchType
 
         <Toaster position='top-center' reverseOrder={false}></Toaster>
         <div className='flex justify-center items-center '>
-          <div style={{ width: "45%", paddingTop: '3em' }}>
+          <div className="w-45 pt-12">
             <FormHeader />
             <Formik
               initialValues={{ receipt_no: '', phone_no: '', receipt_search_type: 'phoneno' }}

@@ -1,6 +1,7 @@
-import {useState} from 'react'
-import  SignOut  from './SignOut';
+import { useState } from 'react'
+import SignOut from './SignOut';
 const Navbar = () => {
+    const user_type = localStorage.getItem('user_type');
     const [userDropdownOpen, setUserDropdownOpen] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -10,8 +11,8 @@ const Navbar = () => {
 
     return (
         <header className="bg-customOrange border-gray-200 dark:bg-customOrange">
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <a href="https://flowbite.com/" className="flex items-center">
+            <div className="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
+                <a href="/" className="flex items-center">
                     <img
                         src="./WhatsApp Image 2023-08-11 at 4.21.35 PM.jpeg"
                         className="h-12 mr-3 sm:h-20 sm:w-80"
@@ -54,6 +55,30 @@ const Navbar = () => {
                             >
                                 Your Profile
                             </a>
+                            {user_type.toString() === "0" ?
+                                <div>
+                                    <a
+                                        href="/register"
+                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                        role="menuitem"
+                                    >
+                                        Register Collector
+                                    </a>
+                                </div> : <></>}
+                            <a
+                                href="/reports"
+                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                role="menuitem"
+                            >
+                                See Reports
+                            </a>
+                            <a
+                                href="/contactUs"
+                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                role="menuitem"
+                            >
+                                Contact Us
+                            </a>
                             <a
                                 href="/changePassword"
                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -62,7 +87,7 @@ const Navbar = () => {
                                 Change Password
                             </a>
                             <SignOut />
-                            
+
                         </div>
                     </div>
                 </div>

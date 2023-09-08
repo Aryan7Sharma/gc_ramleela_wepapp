@@ -27,14 +27,11 @@ const GenerateDonationReceipt = () => {
         setIsloading(true);
         setGetReceiptDetails(null);
         try{
-            console.log(receipt_no);
             const responce  = await CustomPostApi('auth/generateReceipt',{receipt_no:receipt_no})
-            console.log(responce);
             if(responce.status===200){
                 const data = responce.data.receipt_details[0]
                 setShowPdfOverlay(true)
                 setGetReceiptDetails(data);
-                console.log("data-->",data)
             }else if(responce.status===404){
                 toast.error("Details not Found")
             }else if(responce.status===422){
@@ -45,7 +42,7 @@ const GenerateDonationReceipt = () => {
 
             }
         }catch(error){
-            console.error(error);
+            toast.error("Something Went Wrong!");
         }finally{
             setIsloading(false);
         }
@@ -53,7 +50,6 @@ const GenerateDonationReceipt = () => {
     const handleSubmit = async (values, actions) => {
         actions.setSubmitting(true);
         setIsloading(true);
-        console.log("values", values);
         setReceiptsData(null);
         setGetReceiptDetails(null);
         try {
@@ -75,12 +71,10 @@ const GenerateDonationReceipt = () => {
                 const data = responce.data.data;
                 setReceiptsData(data);
                 setIsloading(false);
-                console.log(data)
                 toast.success("Now You can Download Your Receipt")
             } else {
             }
         } catch (error) {
-            console.error(error);
             toast.error(error.message)
         } finally {
             actions.setSubmitting(false);

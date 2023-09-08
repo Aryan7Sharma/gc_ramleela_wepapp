@@ -9,7 +9,9 @@ const { getAllCollectors } = require('../../models/masters/functions/index');
 
 const registerCollector = async (req, res) => {
     try {
-        const { name, email_id, phone_no, password, flat_house_no, block_no, society_name, city_name } = req.body;
+        const { name, email_id, phone_no, password, flat_no, block_no, society_name, city_name } = req.body;
+        const uploadProfileImage = req.file;
+        const profileImgPath = uploadProfileImage.filename;
         //Check if the collector with the provided email already exists
         const existingCollector = await users.findOne({ where: { email_id: email_id } });
         if (existingCollector) { return res.status(409).json({ status: env.s409, msg: "User already registered with this email" }); }
@@ -18,11 +20,12 @@ const registerCollector = async (req, res) => {
             name: name,
             email_id: email_id,
             phone_no: phone_no,
-            flat_house_no: flat_house_no,
+            flat_no: flat_no,
             block_no: block_no,
             society_name: society_name,
             city_name: city_name,
-            address: flat_house_no + ", " + block_no + ", " + society_name + ", " + city_name,
+            address: flat_no + ", " + block_no + ", " + society_name + ", " + city_name,
+            profile_img_path:profileImgPath || 'NA',
             creation_date: new Date(),
             creater_id: req.user_id
         };
@@ -99,15 +102,12 @@ const getallDonorsDetails = async (req, res) => {
 const CollectorBlockUnblock = async (req, res) => {
     try {
         const {collector_id, action} = req.body;
-        console.log(collector_id, action)
         const collectorloginCredentials = await loginCredentials.findByPk(collector_id);
         if(!collectorloginCredentials){return res.status(404).json({ status: env.s404, msg: "OOPs collector login credentials not found!" });};
-        //console.log("collector data",collectorloginCredentials);
         collectorloginCredentials.active = action;
         await collectorloginCredentials.save();
         return res.status(200).json({ status: env.s200, msg: "collector login credentials Updated Successfully!" });
     } catch (error) {
-        console.log("error",error)
         return res.status(500).json({ status: env.s500, msg: "Internal Server Error", error: error }); 
     }
 

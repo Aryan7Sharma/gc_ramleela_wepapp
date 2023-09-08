@@ -6,7 +6,7 @@ import CustomFormikInput from "../hooks/customFormikInput.hook";
 
 const CustomForm = ({ initialValues, validationSchema, formikInput, formTitle, handleSubmit }) => {
     return (
-        <div className='flex justify-center items-center my-10'>
+        <div className='flex justify-center items-center my-10 mx-auto'>
             <div className={styles.glass}>
 
                 <div className="title flex flex-col items-center">

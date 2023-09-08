@@ -26,8 +26,7 @@ export default function ForgetPassword() {
             } else {
             }
         } catch (error) {
-            console.error(error);
-            toast.error(error.message)
+            toast.error(error)
         } finally {
             actions.setSubmitting(false);
         }
@@ -41,7 +40,7 @@ export default function ForgetPassword() {
                 <Toaster position='top-center' reverseOrder={false}></Toaster>
                 {/* h-screen */}
                 <div className='flex justify-center items-center h-screen'>
-                    <div className={styles.glass} style={{ width: "45%", height:"50%", paddingTop: '3em' }}>
+                    <div className={styles.glass} style={{ width: "30%", height:"50%", paddingTop: '3em', margin:'auto' }}>
                         <FormHeader />
                         <Formik
                             initialValues={userid}

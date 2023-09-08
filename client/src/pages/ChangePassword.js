@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Toaster, toast } from 'react-hot-toast';
 import { validatingForm } from '../helper/validate';
 import { CustomPostApi } from '../helper/helper';
@@ -20,18 +19,14 @@ const ChangePassword = () => {
         try {
             actions.setSubmitting(true);
             actions.setStatus(true);
-            console.log(values)
             const responce = await CustomPostApi('auth/changePassword',values);
-            console.log(responce);
             if (responce.status === 200) {
                 toast.success("Password Changed Successfully.")
             } else if (responce.error) {
-                console.log(responce.error)
-                toast.error(responce.error);
                 toast.error("Failed to Change Password");
             }
         }catch(error){
-            console.error(error);
+            toast.error("Something Went Wrong!");
         }finally{
             actions.resetForm();
             actions.setSubmitting(false);

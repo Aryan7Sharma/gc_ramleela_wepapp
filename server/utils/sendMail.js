@@ -22,7 +22,6 @@ const sendCustomMessageViaMail = (email, message) => {
         let status = ""
         if (error) {
         status = "failed"
-        console.error('Error sending email:', error);
         }
         status = "successfull"
         return {"status":status}
@@ -64,10 +63,8 @@ Website  -- www.srstrust.com`
         // Send the email using the nodemailer transporter
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-                //console.error('Error sending email:', error);
                 reject({ "status": "failed" }); // reject the promise with a failed status
             } else {
-                //console.log("info", info);
                 resolve({ "status": "successfull" }); // Resolve the promise with a successful status
             }
         });
@@ -104,10 +101,8 @@ Website  -- www.srstrust.com`
         // Send the email using the nodemailer transporter
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-                //console.error('Error sending email:', error);
                 reject({ "status": "failed" }); // reject the promise with a failed status
             } else {
-                //console.log("info", info);
                 resolve({ "status": "successfull" }); // Resolve the promise with a successful status
             }
         });

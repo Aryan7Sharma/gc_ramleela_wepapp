@@ -8,11 +8,12 @@
 import React, { useState, useEffect } from "react";
 
 const images = [
-  "https://imgk.timesnownews.com/story/rrrrn.png?tr=w-600,h-450,fo-auto",
-  "https://media.istockphoto.com/id/1166547765/photo/ferris-wheel.jpg?s=2048x2048&w=is&k=20&c=uGGaDn2_Ufw7BLlnP6jcIFwoNJfE83OuW-JzZII2L4Y=",
-  "https://media.istockphoto.com/id/534577083/photo/family-on-carousel-in-amusement-park.jpg?s=2048x2048&w=is&k=20&c=I_vVxF0utY2jBX7QzaLHJAQcSoGhEJ-Y1E-ZNsAewNw=",
-  "https://media.istockphoto.com/id/1180430429/photo/ravan-mannequin-on-ocassion-of-traditional-ram-leela-festivel.jpg?s=2048x2048&w=is&k=20&c=zl6PGNvsFpgbf7arhns5OM_TYyrowB1Ni_-M9zoVzLI=",
-  "https://static.langimg.com/photo/imgsize-43578,msid-91136772/navbharat-times.jpg",
+  "./ramji1.webp",
+  //"https://media.istockphoto.com/id/1166547765/photo/ferris-wheel.jpg?s=2048x2048&w=is&k=20&c=uGGaDn2_Ufw7BLlnP6jcIFwoNJfE83OuW-JzZII2L4Y=",
+  "./WhatsApp Image 2023-08-11 at 4.21.35 PM._dark.jpeg",
+  "./ramji2.jpg",
+  "./ramji3.jpg",
+  "./ramji4.webp",
   // Add more image URLs
 ];
 
@@ -73,33 +74,3 @@ export default ImageCarousel;
 
 
 
-// <div className="relative overflow-hidden w-full h-96">
-//       <div
-//         className="flex transition-transform duration-1000 ease-out"
-//         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-//       >
-//         {images.map((image, index) => (
-//           <div
-//             key={index}
-//             className="w-full h-full flex-shrink-0"
-//             style={{ minWidth: "100%" }}
-//           >
-//             <img
-//               src={image}
-//               alt={`Image ${index}`}
-//               className="object-cover max-h-full w-full"
-//             />
-//           </div>
-//         ))}
-//       </div>
-//       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-//         {images.map((_, index) => (
-//           <div
-//             key={index}
-//             className={`h-2 w-8 rounded-full ${
-//               currentIndex === index ? "bg-blue-600" : "bg-gray-300"
-//             }`}
-//           ></div>
-//         ))}
-//       </div>
-//     </div>

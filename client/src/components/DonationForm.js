@@ -15,7 +15,6 @@ const DonationForm = ({ initialValues, validationSchema, formikInput, formTitle,
       values.payment_type = payment_type;
       setPaymentType(payment_type);
     } catch (error) {
-      console.error(error)
     }
 
   }
@@ -46,7 +45,6 @@ const DonationForm = ({ initialValues, validationSchema, formikInput, formTitle,
         values.reference_no = 'NA';
       }
     } catch (error) {
-      console.error(error)
     } finally {
       setdonationType(donation_type);
     }
@@ -80,7 +78,6 @@ const DonationForm = ({ initialValues, validationSchema, formikInput, formTitle,
       }
 
     } catch (error) {
-      console.error("Error checking donor existence:", error);
       return null; // Handle errors gracefully
     } finally {
       setIsloading(false);

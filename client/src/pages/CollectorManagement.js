@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
-import { Navbar, Footer, CommonTable, LoadingOverlay } from "../components"
+import { Navbar, Footer, LoadingOverlay } from "../components"
+import avatar from '../assets/profile.png';
 import { Toaster, toast } from "react-hot-toast";
 import { CustomGetApi, CustomPostApi } from "../helper/helper";
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 const CollectorManagement = () => {
+  const url = process.env.NODE_ENV === "production" ? "/api" : "http://localhost:3001/api"
   const [isloading, setIsloading] = useState(false);
   const [collectors, setCollectors] = useState(null);
   const [collector, setCollector] = useState(null);
@@ -19,25 +21,20 @@ const CollectorManagement = () => {
       window.alert(`Are you Sure You want ${action==="Y"?"Activate":"Block"} this user`)
       const data = { "collector_id": email_id, "action": action };
       const response = await CustomPostApi('admin/collectorBlockUnblock', data);
-      console.log(response);
       if (response.status === 200) {
         toast.success("Collector Status Updated Successfully.");
         await fetchCollectorsData();
       } else if (response.status === 500) {
         toast.error("Something went Wrong!");
       } else if (response.status === 422) {
-        //toast.error(response.error);
         toast.error("UnProgessive Entity");
       } else if (response.error) {
-        //toast.error(response.error);
-        console.log(response.error)
         toast.error("Failed to Update Collector Status");
       } else {
         // Handle other cases if needed
       }
     } catch (error) {
-      console.error(error);
-      toast.error("Getting an Error");
+      toast.error("Something Went Wrong!");
     } finally {
       setIsloading(false);
     }
@@ -46,18 +43,19 @@ const CollectorManagement = () => {
   const fetchCollectorsData = async () => {
     try {
       setIsloading(true);
+      setCollectors(null);
       const responce = await CustomGetApi('admin/getallCollectorsDetails');
       if (responce.status === 200) {
-        await setCollectors(responce.data?.data);
+        setCollectors(responce.data?.data);
       } else if (responce.status === 500) {
+        toast.error("Something went wrong!")
       } else if (responce.error) {
-        toast.error(responce.error);
         toast.error("Failed to load Collectors Details");
       } else {
-
+        toast.error("Something went wrong!")
       }
     } catch (error) {
-      console.error(error);
+      toast.error("Something Went Wrong!");
     } finally {
       setIsloading(false);
     }
@@ -68,13 +66,11 @@ const CollectorManagement = () => {
   }, [])
   return (
     <main>
-      {isloading && <LoadingOverlay />}
+      
       <Navbar />
       <Toaster position='top-center' reverseOrder={false}></Toaster>
-      {/* {collectors &&
-        <CommonTable title={"All Collectors Details"} headings={Object.keys(collectors[0])} tabledata={collectors}/>
-      } */}
-      {collectors &&
+      
+      {collectors &&(
         <div className="flex w-full items-center justify-center min-h-screen bg-gray-100 my-2">
           <div className="w-full max-w-screen-2xl p-6 bg-white shadow-lg rounded-md">
             <h1 className="text-2xl font-bold mb-4">{"All Collectors Details"}</h1>
@@ -135,10 +131,10 @@ const CollectorManagement = () => {
                         {key + 1}
                       </td>
                       <th key={1} scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap ">
-                        <img className="w-10 h-10 rounded-full" src="https://i.pinimg.com/564x/4c/63/db/4c63db4ff4cf48173e4bddb3eb43c7b0.jpg" alt="Jese image" />
+                        <img className="w-10 h-10 rounded-full" src={item.profile_img_path && item.profile_img_path!== "NA" ? `${url}/auth/images/profileimg/${item.profile_img_path}` : avatar} alt="Profile image" />
                         <div className="pl-3">
-                          <div className="text-base font-semibold">{item.name}</div>
-                          <div className="font-normal text-gray-500">{item.email_id}</div>
+                          <div className="text-base font-semibold">{item.name.toString()}</div>
+                          <div className="font-normal text-gray-500">{item.email_id.toString()}</div>
                         </div>
                       </th>
                       <td key={2} className="py-4 px-6">
@@ -151,7 +147,7 @@ const CollectorManagement = () => {
                         {item.creation_date}
                       </td>
                       <td key={5} className="py-4 px-6">
-                        <div class="flex items-center">
+                        <div className="flex items-center">
                           <div className={`h-2.5 w-2.5 rounded-full  mr-2 ${item.status === "Active" ? 'bg-green-500' : 'bg-red-500'}`}></div>
                           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
                             onClick={() => handleStatusChange(item.status, item.email_id)}
@@ -167,8 +163,11 @@ const CollectorManagement = () => {
             </div>
           </div>
         </div>
-      }
-      <Footer />
+      )}
+      
+      {collectors && (<Footer />)}
+      
+      
     </main>
   )
 }

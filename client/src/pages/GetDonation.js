@@ -11,7 +11,6 @@ const GetDonationForm = () => {
   // Retrieving the dictionary from LocalStorage
   const storedDictionaryString = localStorage.getItem('lastdonationFormDetails');
   const lastStoredDonationFormDetails = JSON.parse(storedDictionaryString);
-  console.log("lastStoredDonationFormDetails-->", lastStoredDonationFormDetails);
   // set donation form details
   const [donationDeatils, setDonationDetails] = useState({
     name: '',
@@ -48,7 +47,6 @@ const GetDonationForm = () => {
       actions.setStatus(true); // Set loading status
       const donationData = values;
       setGetReceiptDetails(null);
-      console.log("donationData-->", donationData)
       // Storing a dictionary in LocalStorage
       let responce = ""
       if (values.donation_type === "normal") {
@@ -64,9 +62,7 @@ const GetDonationForm = () => {
       } else if (responce.status === 200) {
         toast.success("Donnaction Collected Successfully!")
         toast.success(responce.data?.msg || '');
-        console.log(responce.data.data);
         const data = responce.data?.data[0]
-        console.log("data",data)
         actions.setStatus(false)
         setShowPdfOverlay(true)
         setGetReceiptDetails(data);
@@ -75,8 +71,7 @@ const GetDonationForm = () => {
 
       }
     } catch (error) {
-      console.error("error-->", error);
-      toast.error(error.message)
+      toast.error("Something Went Wrong!");
     } finally {
       actions.resetForm();
       actions.setStatus(false); // Set loading status

@@ -49,15 +49,15 @@ const login = async (req, res) => {
         if (!user_id) { return res.status(404).json({ status: env.s404, msg: "User not found" }); };
         const matchPass = await bcrypt.compare(password, hash_password);
         if (!matchPass) { return res.status(422).json({ status: env.s422, msg: "Incorrect Password" }); };
-        const token = jwt.sign({ id: user_id }, SecretKey, { expiresIn: '1d' });
-        const oneDay = 1000 * 60 * 60 * 24;
+        const {profile_img_path} = await users.findByPk(user_id);
+        const token = jwt.sign({ id: user_id }, SecretKey, { expiresIn: '1y' });
+        const oneYear = 1000 * 60 * 60 * 24 * 365;
         res.cookie("token", token, {
-            expires: new Date(Date.now() + oneDay),
+            expires: new Date(Date.now() + oneYear),
             httpOnly: true,
         });
-        return res.status(200).json({ status: env.s200, msg: "You Logged In Successfully!", data: { user_type: user_type.toString(), token: token } });
+        return res.status(200).json({ status: env.s200, msg: "You Logged In Successfully!", data: { user_type: user_type.toString(), token: token, profile_img_path:profile_img_path || "NA" } });
     } catch (error) {
-        console.error(error)
         return res.status(500).json({ status: env.s500, msg: "Internal Server Error" });
     }
 };
@@ -68,7 +68,7 @@ const logout = (req, res) => {
         res.clearCookie("token"); // Clear the "token" cookie
         return res.status(200).json({ status: env.s200, msg: "Logged Out Successfully!" });
     } catch (error) {
-        console.error(error);
+        
         return res.status(500).json({ status: env.s500, msg: "Internal Server Error" });
     }
 };
@@ -85,7 +85,7 @@ const changePassword = async (req, res) => {
         await user.save();
         res.status(200).json({ status: env.s200, msg: "Your Password Updated Successfully" });
     } catch (error) {
-        console.log(error)
+        
         res.status(500).json({ status: env.s500, msg: "Internal Server Error", error: error });
     }
 };
@@ -104,7 +104,7 @@ const forgetPassword = async (req, res) => {
         // sending final responce;
         res.status(200).json({ status: env.s200, msg: "New Passord Send into Your Registered Mail ID." });
     } catch (error) {
-        console.log(error)
+        
         res.status(500).json({ status: env.s500, msg: "Internal Server Error", error: error });
     }
 };
@@ -117,7 +117,7 @@ const getUserDetails = async (req, res) => {
         if (!userDetails) { res.status(404).json({ status: env.s404, msg: "Failed to load User Details." }); };
         res.status(200).json({ status: env.s200, msg: "User Details Found Successfully", data: userDetails });
     } catch (error) {
-        console.log(error)
+        
         res.status(500).json({ status: env.s500, msg: "Internal Server Error", error: error });
     }
 };
@@ -129,7 +129,7 @@ const generateReceipt = async (req, res) => {
         if (!receipt_details.length) { return res.status(404).json({ status: env.s404, msg: "Receipt Details did not Found!" }); }
         return res.status(200).json({ status: env.s200, msg: "Receipt Details Founded Successfully", receipt_details: receipt_details });
     } catch (error) {
-        console.error(error);
+        
         return res.status(500).json({ status: env.s500, msg: "Internal Server Error" });
     }
 };
@@ -147,7 +147,7 @@ const getReceiptsInfoByPhoneNo = async (req, res) => {
         if (!data || !data?.length) { return res.status(404).json({ status: env.s404, msg: "No Receipt Details Found aganist this Phone No!" }); }
         return res.status(200).json({ status: env.s200, msg: "Receipt Details Founded Successfully", data: data });
     } catch (error) {
-        console.error(error);
+        
         return res.status(500).json({ status: env.s500, msg: "Internal Server Error" });
     }
 };
@@ -155,7 +155,6 @@ const getReceiptsInfoByPhoneNo = async (req, res) => {
 const getReceiptsInfoByReceiptNo = async (req, res) => {
     try {
         const { receipt_no } = req.body;
-        console.log("check---->", receipt_no);
         const data = await collections.findAll({
             attributes: ['receipt_no', 'collection_date', 'collected_ammount'],
             where: {
@@ -167,10 +166,27 @@ const getReceiptsInfoByReceiptNo = async (req, res) => {
         if (!data || !data?.length) { return res.status(404).json({ status: env.s404, msg: "No Receipt Details Found aganist this Receipt No!" }); }
         return res.status(200).json({ status: env.s200, msg: "Receipt Details Founded Successfully", data: data });
     } catch (error) {
-        console.error(error);
+        
         return res.status(500).json({ status: env.s500, msg: "Internal Server Error" });
     }
 };
+
+const updateProfile = async (req, res) => {
+    try {
+        const { user_id} = req.user;
+        const { name } = req.body;
+        updatedData = {name:name};
+        // Update the user record
+        await users.update(updatedData, {
+            where: { email_id: user_id }, // Specify the user ID for updating
+        })
+        res.status(200).json({ status: env.s200, msg: "Your Details Updated Successfully." });
+    } catch (error) {
+        
+        res.status(500).json({ status: env.s500, msg: "Details Updation Failed", error: error });
+    }
+};
+
 
 
 
@@ -184,4 +200,5 @@ module.exports = {
     generateReceipt,
     getReceiptsInfoByPhoneNo,
     getReceiptsInfoByReceiptNo,
+    updateProfile
 }

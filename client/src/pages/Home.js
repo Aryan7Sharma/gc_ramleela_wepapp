@@ -6,13 +6,11 @@ import { Data } from '../assets/data/data';
 const Home = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  console.log("user", user)
   if (!user?.userType) {
     localStorage.clear();
     navigate('/signin');
   }
-  const cardData = user.userType === "0" ? Data.cardData.admin : Data.cardData.collector
-  console.log(user);
+  const cardData = user.userType === "0" ? Data.cardData.admin : Data.cardData.collector;
   return (
     <main>
       <Navbar />

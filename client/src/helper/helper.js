@@ -1,10 +1,7 @@
 import axios from 'axios';
-import { useContext } from 'react';
 import jwt_decode from 'jwt-decode';
-import { AuthProvider } from '../contexts/AuthContext';
 
-axios.defaults.baseURL = process.env.NODE_ENV === "production"?"/":"http://localhost:3001/";
-console.log(process.env.NODE_ENV,"check")
+axios.defaults.baseURL = process.env.NODE_ENV === "production"?"/api":"http://localhost:3001/api";
 
 /** Make API Requests */
 const token = localStorage.getItem("authToken");
@@ -12,20 +9,20 @@ export async function LoginApi(url, object){
     try {
         return await axios.post(url, object);
     } catch (error) {
-        console.log(error);
         return { error : error.response.data.error || error.response.data.msg || error.response.data[0].msg || error.message || "Internal Server Error"}
     }
 }
 
-export async function CustomPostApi(url, object){
+export async function CustomPostApi(url, object, contentType ){
     try {
         return await axios.post(url, object, {
             headers: {
-                Authorization: token // Include the token in the request header
+                Authorization: token, // Include the token in the request header
+                'Content-Type':contentType || 'application/json',
+
             }
         });
     } catch (error) {
-        console.log(error);
         return { error : error.response.data.error || error.response.data.msg || error.response.data[0].msg || error.message || "Internal Server Error"}
     }
 }
@@ -37,7 +34,6 @@ export async function CustomGetApi(url){
             }
         });
     } catch (error) {
-        console.log(error);
         return { error : error.response.data.error || error.response.data.msg || error.response.data[0].msg || error.message || "Internal Server Error"}
     }
 }

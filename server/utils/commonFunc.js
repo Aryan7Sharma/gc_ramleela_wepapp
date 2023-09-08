@@ -95,7 +95,6 @@ const generateNewPassword = () => {
           const hashedPassword = await bcrypt.hash(plainPassword, 10);
           return hashedPassword;
       } catch (error) {
-          console.error(error);
           throw error;
       }
   }

@@ -1,11 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Footer, Navbar, FilterForm, InfoCard, LoadingOverlay, CommonNestedTable, SelectorComponent } from "../components/index";
-import TabbedNavigation from '../components/temp2';
 import { Data } from '../assets/data/data';
 import { CustomGetApi } from '../helper/helper';
 import { Toaster, toast } from 'react-hot-toast';
-import { object } from 'yup';
-import { data } from 'autoprefixer';
 
 
 const tableHeadingData = Data.tableHeading.admin;
@@ -30,20 +27,17 @@ const AdminDashboard = () => {
 
     const tables = ['Table A', 'Table B', 'Table C', 'Table D', 'Table E', 'Table F'];
     const handleCardData = (data) => {
-        console.log("inside handleCardData");
         const societys = Object.keys(data);
         let total_receipts = 0
         let total_collectors = 0
         let total_donation = 0
         let total_donors = 0
-        console.log(societys);
         for (let i = 0; i < societys.length; i++) {
             total_receipts += data[societys[i]].total_receipt.size;
             total_collectors += data[societys[i]].total_collector_id.size;
             total_donation += data[societys[i]].collected_ammount;
             total_donors += data[societys[i]].total_donor_phone_no.size;
         }
-        console.log("check", total_receipts)
         setCardData({
             total_receipts: total_receipts,
             total_collectors: total_collectors,
@@ -53,7 +47,6 @@ const AdminDashboard = () => {
     }
     const handleTableSelect = (selectedTable) => {
         // Fetch and display data for the selected table
-        console.log(`Fetching data for ${selectedTable}`);
     };
 
 
@@ -120,7 +113,6 @@ const AdminDashboard = () => {
                 setTableHeading(tableHeadingData.filteronSociety)
                 setAllBlock([]);
             } else {
-                console.log(currSociety)
                 const blocks = allSociety[currSociety].total_donor_block_no;
                 setTableTitle(currSociety  + " Society");
                 setAllBlock(blocks);
@@ -152,13 +144,12 @@ const AdminDashboard = () => {
                     }
 
                 }
-                console.log("Block by Filter", filterByBlocks);
                 setTableHeading(tableHeadingData.filteronBlock);
                 setFilteredCollectionData(filterByBlocks);
             }
 
         } catch (error) {
-            console.error("sss", error);
+            toast.error("Something Went Wrong!");
         }
     }
     const handleBlockChange = async (event) => {
@@ -169,8 +160,6 @@ const AdminDashboard = () => {
                 setTableTitle(society + " Society");
                 return;
              } else {
-                console.log(society, currBlock)
-                console.log(allSociety[society]);
                 const flats = allSociety[society].total_donor_flat_no;
                 setTableTitle(currBlock  + " Block");
                 setAllFlats(flats);
@@ -199,13 +188,12 @@ const AdminDashboard = () => {
                     }
 
                 }
-                console.log("Flats by Filter", filterByFlats, society, block);
                 setTableHeading(tableHeadingData.filteronFlats);
                 setFilteredCollectionData(filterByFlats);
             }
 
         } catch (error) {
-            console.error("sss", error);
+            toast.error("Something Went Wrong!");
         }
     }
     const fetchallCollectionDetails = async () => {
@@ -214,10 +202,8 @@ const AdminDashboard = () => {
             const responce = await CustomGetApi('admin/getallCollectionsDetails');
             if (responce.status === 200) {
                 const mapedData = responce.data?.data?.length > 0 ? await mapallCollectionDetails(responce.data.data) : []
-                console.log("m", mapedData)
                 setAllCollectionDetails(mapedData);
                 await handlefilteredCollectionDataChange(filteronSociety, mapedData);
-                console.log("filtereddatass", filteredCollectionData);
                 toast.success("Data Loaded Successfully.");
             } else if (responce.status === 401) {
                 toast.error("You are not authorized user to access this!")
@@ -230,7 +216,7 @@ const AdminDashboard = () => {
             }
             setIsloading(false);
         } catch (error) {
-            console.error(error)
+            toast.error("Something Went Wrong!");
         } finally {
             setIsloading(false);
         }

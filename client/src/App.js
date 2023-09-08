@@ -1,7 +1,7 @@
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import Testing from './Testing';
+
 
 /** import components */
 
@@ -75,11 +75,7 @@ const router = createBrowserRouter([
         path: '*',
         element: <PageNotFound></PageNotFound>
     },
-    ,
-    {
-        path: '/testing',
-        element: <Testing />
-    }
+    
 ])
 
 export default function App() {

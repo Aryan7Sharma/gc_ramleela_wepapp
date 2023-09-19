@@ -18,3 +18,5 @@ export {default as ContactUsComponent} from "./ContactUsComponent";
 export {default as ImageCarousel} from "./ImageCarousel";
 export {default as CommonTable} from "./CommonTable";
 export {default as GenerateDonationReceiptPdf} from "./GenerateDonationReceiptPdf";
+export {default as ChatMain} from "./ChatMain";
+export {default as ChatSidebar} from "./ChatSidebar";

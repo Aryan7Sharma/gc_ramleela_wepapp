@@ -55,19 +55,19 @@ const AdminDashboard = () => {
 
     const mapallCollectionDetails = async (data) => {
         const flattenedData = data.map(item => ({
-            "receipt_no": item.receipt_no,
-            "collection_date": item.collection_date,
-            "collected_ammount": item.collected_ammount,
-            "payment_name": item.payment_name,
-            "reference_no": item.reference_no,
-            "collector_id": item.collector_id,
-            "donor_name": item.tbl_donor_detail.name,
-            "donor_flat_no": item.tbl_donor_detail.flat_no,
-            "donor_block_no": item.tbl_donor_detail.block_no,
-            "donor_society_name": item.tbl_donor_detail.society_name,
-            "donor_city_name": item.tbl_donor_detail.city_name,
-            "donor_phone_no": item.tbl_donor_detail.phone_no,
-            "collector_name": item.tbl_user.name,
+            "receipt_no": item.receipt_no || 'NA',
+            "collection_date": item.collection_date || 'NA',
+            "collected_ammount": item.collected_ammount || 'NA',
+            "payment_name": item.payment_name || 'NA',
+            "reference_no": item.reference_no || 'NA',
+            "collector_id": item.collector_id || 'NA',
+            "donor_name": item.tbl_donor_detail?.name || "NA",
+            "donor_flat_no": item.tbl_donor_detail?.flat_no || "NA",
+            "donor_block_no": item.tbl_donor_detail?.block_no || "NA",
+            "donor_society_name": item.tbl_donor_detail?.society_name || "NA",
+            "donor_city_name": item.tbl_donor_detail?.city_name || "NA",
+            "donor_phone_no": item.tbl_donor_detail?.phone_no || "NA",
+            "collector_name": item.tbl_user?.name || "NA" ,
         }));
         return flattenedData;
 

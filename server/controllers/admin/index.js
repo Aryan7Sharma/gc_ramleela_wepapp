@@ -10,8 +10,11 @@ const { getAllCollectors } = require('../../models/masters/functions/index');
 const registerCollector = async (req, res) => {
     try {
         const { name, email_id, phone_no, password, flat_no, block_no, society_name, city_name } = req.body;
-        const uploadProfileImage = req.file;
-        const profileImgPath = uploadProfileImage.filename;
+        let profileImgPath = 'NA';
+        if(req.file){
+            const uploadProfileImage = req.file;
+            profileImgPath = uploadProfileImage?.filename;
+        }
         //Check if the collector with the provided email already exists
         const existingCollector = await users.findOne({ where: { email_id: email_id } });
         if (existingCollector) { return res.status(409).json({ status: env.s409, msg: "User already registered with this email" }); }

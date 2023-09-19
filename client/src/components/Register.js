@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 import avatar from '../assets/profile.png';
 import { Toaster, toast } from 'react-hot-toast';
 import { useFormik, Formik, Form } from 'formik';
 import CustomFormikInput from '../hooks/customFormikInput.hook.js';
 import { validatingForm } from '../helper/validate';
-import { registerValidation } from '../helper/validate';
 import { convertToBase64 } from '../helper/convert';
 import { CustomPostApi } from '../helper/helper';
 
@@ -69,7 +67,7 @@ export default function Register() {
 
   return (
     <main>
-      {/* <Navbar /> */}
+      <Navbar />
       <Toaster position='top-center' reverseOrder={false}></Toaster>
       <div className="container mx-auto w-50">
 
@@ -133,7 +131,7 @@ export default function Register() {
           </div>
         </div>
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </main>
   )
 }

@@ -7,6 +7,7 @@ const verifyAdmin = async (req, res, next) => {
     if (!token) {return res.status(401).json({ error: 'Token not provided' })};
     try {
         const decodetoken = jwt.verify(token, keysecret);
+        
         const user = await loginCredentials.findByPk(decodetoken.id);
         if (!user || user?.active!=='Y') {return res.status(401).json({ status:env.s401, msg: 'You are not authorized user to access this!' });}
         req.user = user;

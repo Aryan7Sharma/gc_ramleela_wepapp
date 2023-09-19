@@ -7,6 +7,7 @@ import { toast } from "react-hot-toast";
 const DonationForm = ({ initialValues, validationSchema, formikInput, formTitle, handleSubmit, lastStoredDonationFormDetails }) => {
   const [isloading, setIsloading] = useState(false);
   const [paymentType, setPaymentType] = useState("Cash");
+  const [societyName, setSocietyName] = useState("Select");
   const [donationType, setdonationType] = useState("normal");
 
   const handlePaymentTypeChange = (payment_type, values) => {
@@ -14,6 +15,15 @@ const DonationForm = ({ initialValues, validationSchema, formikInput, formTitle,
       values.reference_no = payment_type === "0" ? "NA" : "";
       values.payment_type = payment_type;
       setPaymentType(payment_type);
+    } catch (error) {
+    }
+
+  }
+
+  const handleSocietyTypeChange = (society_name, values) => {
+    try {
+      values.society_name = society_name;
+      setSocietyName(society_name);
     } catch (error) {
     }
 
@@ -164,6 +174,35 @@ const DonationForm = ({ initialValues, validationSchema, formikInput, formTitle,
               <option value="5">Other</option>
             </Field>
             <ErrorMessage name="payment_type" component="div" className="text-maroon text-xl" />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="society_name" className="block mb-1 font-medium">
+              Society Name 
+            </label>
+            <Field
+              as="select"
+              id="society_name"
+              name="society_name"
+              className="w-full p-2 border rounded"
+              value={societyName}
+              onChange={(e) => handleSocietyTypeChange(e.target.value, values)}
+            >
+              <option value="1st Avenue">1st Avenue</option>
+              <option value="4th Avenue">4th Avenue</option>
+              <option value="5th Avenue">5th Avenue</option>
+              <option value="6th Avenue">6th Avenue</option>
+              <option value="7th Avenue">7th Avenue</option>
+              <option value="10th Avenue">10th Avenue</option>
+              <option value="11th Avenue">11th Avenue</option>
+              <option value="12th Avenue">12th Avenue</option>
+              <option value="14th Avenue">14th Avenue</option>
+              <option value="16th Avenue">16th Avenue</option>
+              <option value="Saya Zion<">Saya Zion</option>
+              <option value="Park Avenuue">Park Avenue</option>
+              <option value="North Avenue 1">North Avenue 1</option>
+              <option value="Others">Others</option>
+            </Field>
+            <ErrorMessage name="society_name" component="div" className="text-maroon text-xl" />
           </div>
           {(status || isloading) && (
             <LoadingOverlay />

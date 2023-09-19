@@ -1,6 +1,7 @@
 // models/collectionsDetails.js
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require("../../database/connection"); 
+const LoginCredentials = require('./tbl_login_credentials');
 
 const Users = sequelize().define('tbl_users', {
   email_id: {
@@ -53,5 +54,7 @@ const Users = sequelize().define('tbl_users', {
   schema:'master', // defining schema
   tableName: 'tbl_users', // Use the same table name as in the database
 });
+
+//Users.hasOne(LoginCredentials, { foreignKey: 'user_id'});
 
 module.exports = Users;

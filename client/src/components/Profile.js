@@ -92,7 +92,7 @@ export default function Profile() {
                 <Form className='py-1'>
                   <div className='profile flex justify-center py-4'>
                     <label htmlFor="profile">
-                      <img src={profile_img_path !== "NA" ? `${url}/auth/images/profileimg/${profile_img_path}` : avatar} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" />
+                      <img src={profile_img_path && profile_img_path !== "NA" ? `${url}/auth/images/profileimg/${profile_img_path}` : avatar} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" />
                     </label>
 
                     <input onChange={onUpload} type="file" id='profile' name='profile' disabled={true} />

@@ -33,7 +33,7 @@ const GetDonationForm = () => {
     { "label": "Email", "name": "email_id", "type": "email" },
     { "label": "Flat No", "name": "flat_no", "type": "text" },
     { "label": "Block No", "name": "block_no", "type": "text" },
-    { "label": "Society Name", "name": "society_name", "type": "text" },
+    //{ "label": "Society Name", "name": "society_name", "type": "text" },
     { "label": "City Name", "name": "city_name", "type": "text" },
     { "label": "Pan No", "name": "pan_no", "type": "string" },
     { "label": "Amount", "name": "collected_ammount", "type": "string" },

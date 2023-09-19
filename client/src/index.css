@@ -13,3 +13,26 @@ body{
     background: #dcdce6;
     background-image: url('./assets/Background.png');
 }
+
+.message-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .message {
+    max-width: 70%; /* Adjust this as needed */
+    margin: 8px;
+    padding: 8px;
+    border-radius: 8px;
+  }
+  
+  .self-start {
+    align-self: flex-start;
+    background-color: #eee; /* Left-aligned message background color */
+  }
+  
+  .self-end {
+    align-self: flex-end;
+    background-color: #dcf8c6; /* Right-aligned message background color */
+  }
+  

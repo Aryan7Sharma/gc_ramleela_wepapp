@@ -3,7 +3,7 @@ const loginCredentials = require("./tbl_login_credentials");
 const donors = require("./tbl_donor_details");
 const collections = require("./tbl_collections_details");
 const guestdonors = require("./tbl_guestdonor_details");
-
+const groupChat = require("./tbl_groupchat");
 
 
 module.exports = {
@@ -11,5 +11,6 @@ module.exports = {
     loginCredentials,
     donors,
     collections,
-    guestdonors
+    guestdonors,
+    groupChat
 }

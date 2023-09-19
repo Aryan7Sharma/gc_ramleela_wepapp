@@ -94,6 +94,7 @@ const donationCollection = async (req, res) => {
         const collector_id = req.collector_id;
         if (!collector_id) { return res.status(502).json({ status: env.s502, msg: "Unable to find your identity" }) };
         const { name, email_id, phone_no, flat_no, block_no, society_name,city_name, pan_no, collected_ammount, payment_type, reference_no } = req.body;
+        console.log("paymet type", payment_type);
         const payment_name = payTypeTopayName(payment_type);
         receipt_no = await generate_receipt_no();
         const today_date = new Date().toISOString().slice(0, 10);
@@ -156,6 +157,7 @@ const donationCollection = async (req, res) => {
         if (!email_id) { res.status(200).json({ status: env.s200, msg: "Details saved successfully, pdf didn't send because of Invalid Mail ID." }); };
 
         const amountInWords = numberToWords(collected_ammount);
+        console.log("amountInWords", amountInWords);
         // generate pdf and send over mail
         const pdfFormDetails = {
             receipt_no: receipt_no,

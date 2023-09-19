@@ -1,4 +1,4 @@
-import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+
 
 const CommonTable = ({ ...props }) => {
 
@@ -8,7 +8,7 @@ const CommonTable = ({ ...props }) => {
                 <h1 className="text-2xl font-bold mb-4">{props?.title}</h1>
                 <div className="overflow-x-auto">
                     {/* ... */}
-                    {props?.tabledata && (
+                    {/* {props?.tabledata && (
                         <ReactHTMLTableToExcel
                             id="test-table-xls-button"
                             className="btn btn-primary bg-customOrange hover:bg-blue-500 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center mb-5"
@@ -28,7 +28,7 @@ const CommonTable = ({ ...props }) => {
                                 </>
                             }
                         />
-                    )}
+                    )} */}
                     <table className="min-w-full divide-y divide-gray-300" id='table-to-xls'>
                         <thead>
                             <tr className="bg-customOrange">

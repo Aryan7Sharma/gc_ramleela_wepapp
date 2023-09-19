@@ -1,6 +1,7 @@
 // models/collectionsDetails.js
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require("../../database/connection"); 
+const Users = require("./tbl_users");
 
 const LoginCredentials = sequelize().define('tbl_login_credentials', {
   user_id: {
@@ -26,4 +27,9 @@ const LoginCredentials = sequelize().define('tbl_login_credentials', {
     tableName: 'tbl_login_credentials', // Use the same table name as in the database
 });
 
+// Define the association between Users and GroupChat
+// Users.hasMany(LoginCredentials, {
+//   foreignKey: 'email_id', // This should match the field in tbl_groupchat that references users
+// });
+//LoginCredentials.belongsTo(Users, { foreignKey: 'email_id'});
 module.exports = LoginCredentials;

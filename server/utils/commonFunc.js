@@ -70,8 +70,8 @@ const numberToWords = (num) => {
         "0":"Cash",
         "1":"Cheque", 
         "2":"Paytm",
-        "3":"Google-Pay",
-        "4":"Phone-pe",
+        "3":"Phone-Pay",
+        "4":"Google-Pay",
         "5":"Others",
     }
     return paymentTypeName[paymentType]

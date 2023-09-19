@@ -9,3 +9,4 @@ export {default as CollectorDashboard} from "./CollectorDashboard";
 export {default as CollectorManagement} from "./CollectorManagement";
 export {default as AllReports} from "./AllReports";
 export {default as ContactUs} from "./ContactUs";
+export {default as Chat} from "./Chat";

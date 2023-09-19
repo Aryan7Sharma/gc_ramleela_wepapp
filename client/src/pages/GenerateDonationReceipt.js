@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import { PDFDocument, rgb } from 'pdf-lib';
 //import { Document, Page } from 'react-pdf';
 //import { fetchPdfTemplate } from '../helper/convert'; // Make sure the path is correct
@@ -105,7 +104,7 @@ const GenerateDonationReceipt = () => {
                             <div className="overflow-x-auto">
                                 {/* ... */}
 
-                                <ReactHTMLTableToExcel
+                                {/* <ReactHTMLTableToExcel
                                     id="test-table-xls-button"
                                     className="btn btn-primary bg-customOrange hover:bg-blue-500 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center mb-5"
                                     table="table-to-xls"
@@ -123,7 +122,7 @@ const GenerateDonationReceipt = () => {
                                             Export to Excel
                                         </>
                                     }
-                                />
+                                /> */}
                                 <table className="min-w-full divide-y divide-gray-300" id='table-to-xls'>
                                     <thead>
                                         <tr className="bg-customOrange">

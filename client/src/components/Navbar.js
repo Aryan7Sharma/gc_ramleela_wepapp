@@ -1,9 +1,12 @@
 import { useState } from 'react'
 import SignOut from './SignOut';
+import avatar from '../assets/profile.png';
 const Navbar = () => {
     const user_type = localStorage.getItem('user_type');
     const [userDropdownOpen, setUserDropdownOpen] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const userProfileImg = localStorage.getItem('profile_img_path');
+    const url = process.env.NODE_ENV === "production" ? "/api" : "http://localhost:3001/api";
 
     const toggleUserDropdown = () => {
         setUserDropdownOpen(!userDropdownOpen);
@@ -33,7 +36,7 @@ const Navbar = () => {
                         <span className="sr-only">Open user menu</span>
                         <img
                             className="w-8 h-8 rounded-full sm:w-12 sm:h-12"
-                            src="https://media.licdn.com/dms/image/C5603AQEU0oBTghtKYA/profile-displayphoto-shrink_800_800/0/1650952862670?e=2147483647&v=beta&t=AkKqr9YGHjqzatpA5tMheknxSHWBtO6VATH9To0MQ6Q"
+                            src={userProfileImg && userProfileImg!=='NA'? `${url}/auth/images/profileimg/${userProfileImg}` :avatar}
                             alt="User"
                         />
                     </button>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-
+import Testing from './testing';
 
 /** import components */
 
@@ -12,7 +12,7 @@ import PageNotFound from './components/PageNotFound';
 import { ForgetPassword } from './components';
 
 // pages
-import { Home, GetDonation, AdminDashboard, SignIn, UserProfile, GenerateDonationReceipt, ChangePassword, AllReports, CollectorDashboard, CollectorManagement, ContactUs } from './pages/index';
+import { Home, GetDonation, AdminDashboard, SignIn, UserProfile, GenerateDonationReceipt, ChangePassword, AllReports, CollectorDashboard, CollectorManagement, ContactUs, Chat } from './pages/index';
 
 /** auth middleware */
 import { IsUserLoggedIN, ProtectAllUserRoute, ProtectAdminRoute, ProtectCollectorRoute } from './middleware/auth'
@@ -75,6 +75,14 @@ const router = createBrowserRouter([
         path: '*',
         element: <PageNotFound></PageNotFound>
     },
+    {
+        path: '/chating',
+        element: <Chat />
+    },
+    // {
+    //     path: '/testing',
+    //     element: <Testing />
+    // },
     
 ])
 
